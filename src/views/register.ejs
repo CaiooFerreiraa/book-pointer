@@ -1,0 +1,44 @@
+<%- include('includes/header.ejs') %>
+<%- include('includes/nav.ejs') %>
+
+<div class="container-fluid d-flex flex-column" style="width: 70%;">
+
+  <%- include('includes/msg') %>
+
+  <form action="/register/registerBook" method="post">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="d-flex flex-column">
+      <label for="titulo">Titulo</label>
+      <input type="text" name="titulo" id="titulo" class=""> 
+    </div>
+    <div class="d-flex flex-column">
+      <label for="autor">Autor</label>
+      <input type="text" name="autor" id="autor">
+    </div>
+    <div class="d-flex flex-column mb-3">
+      <label for="genero">Gênero</label>
+      <input type="text" name="genero" id="genero">
+    </div>
+    <div class="d-flex" style="justify-content: center; align-items: center;">
+      <label for="dataInit">Inicio</label>
+      <input type="text" name="inicio" id="dataInit">
+      <label for="dataFinish">Fim</label>
+      <input type="text" name="fim" id="dataFinish">
+    </div>
+    <div class="d-flex flex-column">
+      <label for="nota">Avaliação</label>
+      <input type="text" name="nota" id="nota">
+    </div>
+    <div class="d-flex flex-column">
+      <label for="citacao">Melhor citação</label>
+      <input type="text" name="citacao" id="citacao">
+    </div>
+    <div class="d-flex flex-column mb-2">
+      <label for="personagens">Melhores personagens</label>
+      <input type="text" name="personagens" id="personagens">
+    </div>
+    <button type="submit">Salver</button>
+  </form>
+</div>
+
+<%- include('includes/footer.ejs') %>

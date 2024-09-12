@@ -1,0 +1,13 @@
+<% if (errors.length > 0) { %>
+  <div>
+    <% errors.forEach(element => { %>
+      <div><%= element %></div>
+    <% }) %>
+  </div>
+<% } else if (success.length > 0) { %>
+  <div>
+    <% success.forEach(element => { %>
+      <div><%= element %></div>
+    <% }) %>
+  </div>
+<% } %>

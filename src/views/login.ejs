@@ -1,0 +1,39 @@
+<%- include('includes/header') %>
+<%- include('includes/nav') %>
+
+<div class="containerForm">
+  <div class="login">
+    <%- include('includes/msgLogin') %>
+    <form action="/singin/login" method="post">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>"> 
+      <div class="form-floating mb-2">
+        <input type="email" class="form-control" id="emailLogin" placeholder="name@example.com" name="email">
+        <label for="emailLogin">Email</label>
+      </div>
+      <div class="form-floating mb-2">
+        <input type="password" class="form-control" id="passwordLogin" placeholder="Password" name="password">
+        <label for="passwordLogin">Password</label>
+      </div>
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+  <div class="super">
+    <% if (user) { %>
+      <div><%= user.email %></div>
+      <div><%= user.nome + " " + user.sobrenome %></div>
+    <% } %>
+  </div>
+  <div class="createAccount">
+    <%- include('includes/msgCreate') %>
+    <form method="post" action="/singin/create" class="d-flex" style="flex-direction: column;">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>"> 
+      <input type="text" name="nome" id="nome" class="form-control">
+      <input type="text" name="sobrenome" id="sobrenome" class="form-control">
+      <input type="email" name="email" id="email">
+      <input type="password" name="password" id="passwordCreate" class="form-control">
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+</div>
+
+<%- include('includes/footer') %>
