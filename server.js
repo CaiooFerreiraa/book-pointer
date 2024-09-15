@@ -1,13 +1,14 @@
 import dotenv from 'dotenv';
-dotenv.config();
 import express from 'express';
-const app = express();
-const port = 8080;
 import mongoose from 'mongoose';
 import path from 'path';
 import routes from './router.js';
-const connectString = process.env.CONNECTSTRING; // Trocar CONNECTSTRING por sua string do banco de dados mongo
 import { createCsrf, checkCsrfError } from './src/middlewares/middlewares.js';
+dotenv.config();
+
+const app = express();
+const port = 8080;
+const connectString = process.env.CONNECTSTRING; // Trocar CONNECTSTRING por sua string do banco de dados mongo
 
 mongoose.connect(connectString)
   .then(() => {
