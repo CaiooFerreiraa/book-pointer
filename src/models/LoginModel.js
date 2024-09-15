@@ -16,12 +16,11 @@ const LoginModel = mongoose.model('accounts', LoginSchema);
 export class Create extends Account {
   constructor(body) {
     super(body);
-    this.superUser = ['biancalovedoda@hotmail.com'];
   }
 
   async main() {
     await this.validate();
-    this.isSuperUser();
+    // this.isSuperUser();
 
     if (this.errors.length > 0) return;
 
@@ -43,11 +42,12 @@ export class Create extends Account {
     return this.account = await LoginModel.findOne({ email: this.body.email})
   }
 
-  isSuperUser() {
-    for (const user of this.superUser) {
-      if (this.body.email == user) return this.body = {...this.body, super: true};
-    }
-  }
+  //Faz a verificação se esse usário é um super usuário
+  // isSuperUser() {
+  //   for (const user of this.superUser) {
+  //     if (this.body.email == user) return this.body = {...this.body, super: true};
+  //   }
+  // }
 }
 
 export class Login extends Account {
