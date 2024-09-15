@@ -4,6 +4,11 @@ import mongoose from 'mongoose';
 import path from 'path';
 import routes from './router.js';
 import { createCsrf, checkCsrfError } from './src/middlewares/middlewares.js';
+import flash from 'connect-flash';
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
+import helmet from 'helmet';
+import csrf from 'csurf';
 dotenv.config();
 
 const app = express();
@@ -21,12 +26,6 @@ mongoose.connect(connectString)
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.resolve('public')));
 app.use(express.json());
-
-import flash from 'connect-flash';
-import session from 'express-session';
-import MongoStore from 'connect-mongo';
-import helmet from 'helmet';
-import csrf from 'csurf';
 
 const sessionOption = session({
   secret: process.env.SECRET,
