@@ -20,4 +20,9 @@ export default class Account {
   lengthPassword(password) {
     return password.length >= 8 && password.length <= 20;
   }
+
+  errorMsg(msg) {
+    if (typeof msg !== 'string') return;
+    this.errors.push(msg);
+  }
 }

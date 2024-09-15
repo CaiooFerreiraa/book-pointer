@@ -1,5 +1,7 @@
 import Register from '../models/RegisterModel.js';
 import { Create, Login } from '../models/LoginModel.js';
+import dotenv from "dotenv";
+dotenv.config();
 
 export const index = (req, res) => {
   res.render('login');
@@ -19,6 +21,13 @@ export const login = async (req, res) => {
     
     req.session.user = user.account;
     req.flash('success', 'Usuário logado com sucesso');
+
+    if (req.body.email === process.env.emailAdmin && req.body.password === process.env.passwordAdmin) {
+      return req.session.save(() => {
+        res.redirect('/admin');
+      })
+    }
+
     return req.session.save(() => {res.redirect('back')});
   } catch (e) {
     console.error(e)

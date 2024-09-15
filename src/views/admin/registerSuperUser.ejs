@@ -1,0 +1,13 @@
+<%- include('../includes/header') %>
+<%- include('../includes/nav') %>
+
+<form action="/admin/registerSuperUser" method="post">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <div>
+    <label for="emailAdmin">Email</label>
+    <input type="text" name="emailAdmin" id="emailAdmin">
+  </div>
+  <button type="submit">Registrar</button>
+</form>
+
+<%- include('../includes/footer') %>

@@ -7,7 +7,8 @@ const LoginSchema = new mongoose.Schema({
   nome: {type: String, required: true},
   sobrenome: {type: String, required: true},
   email: {type: String, required: true},
-  password: {type: String, required: true}
+  password: {type: String, required: true},
+  super: {type: Boolean, required: false}
 })
 
 const LoginModel = mongoose.model('accounts', LoginSchema);
@@ -15,10 +16,12 @@ const LoginModel = mongoose.model('accounts', LoginSchema);
 export class Create extends Account {
   constructor(body) {
     super(body);
+    this.superUser = ['biancalovedoda@hotmail.com'];
   }
 
   async main() {
     await this.validate();
+    this.isSuperUser();
 
     if (this.errors.length > 0) return;
 
@@ -31,9 +34,19 @@ export class Create extends Account {
   async validate() {
     this.cleanUp();
 
-    if (!validator.isEmail(this.body.email)) this.errors.push('Email inválido');
-    if (!await LoginModel.findOne({ email: this.body.email })) this.errors.push('Usuário já existe');
-    if (!this.lengthPassword(this.body.password)) this.errors.push('A senha deve ter entre 8 à 20 letras');
+    if (!validator.isEmail(this.body.email) || !this.body.email) this.errorMsg('Email inválido')
+    if (await this.accountExist()) this.errors.push('Usuário já existe');
+    if (!this.lengthPassword(this.body.password) || !this.body.password) this.errors.push('A senha deve ter entre 8 à 20 letras');
+  }
+  
+  async accountExist() {
+    return this.account = await LoginModel.findOne({ email: this.body.email})
+  }
+
+  isSuperUser() {
+    for (const user of this.superUser) {
+      if (this.body.email == user) return this.body = {...this.body, super: true};
+    }
   }
 }
 
@@ -54,13 +67,13 @@ export class Login extends Account {
     this.cleanUp();
 
     if (!validator.isEmail(this.body.email)) this.errors.push('Email ou senha inválidos');
-    if (await this.accountExiste()) this.errors.push('Usuário não existe');
-    if (!this.lengthPassword(this.body.password)) this.errors.push('Senha deve ter entre 8 e 20 caracteres');
+    if (!this.body.password) return this.errors.push('Email ou senha inválidos')
+    if (!this.lengthPassword(this.body.password)) return this.errors.push('Senha deve ter entre 8 e 20 caracteres');
+    if (!await this.accountExist()) this.errors.push('Usuário não existe');
     if (!bcryptjs.compareSync(this.body.password, this.account.password)) this.errors.push('Email ou senha inválidos');
   }
 
-  async accountExiste() {
-    this.account = await LoginModel.findOne({ email: this.body.email });
-    return !this.account;
+  async accountExist() {
+    return this.account = await LoginModel.findOne({ email: this.body.email });
   }
 }

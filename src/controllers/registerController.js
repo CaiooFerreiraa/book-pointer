@@ -7,7 +7,7 @@ export const index = (req, res) => {
 
 export const register = async (req, res) => {
   try {
-    const registerBook = new Register(req.body);
+    const registerBook = new Register(req.body, req.session.user);
     await registerBook.registrar()
 
     if (registerBook.errors.length > 0) {
@@ -27,7 +27,12 @@ export const register = async (req, res) => {
   }
 }
 
+export const registerSuperUser = (req, res) => {
+
+}
+
 export default {
   index,
-  register
+  register,
+  registerSuperUser
 }

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcryptjs from 'bcryptjs';
 import Account from '../BaseClasses/AccountCore.js';
 
 const RegisterSchema = new mongoose.Schema({
@@ -7,21 +8,49 @@ const RegisterSchema = new mongoose.Schema({
   genero: {type: String, required: false},
   inicio: {type: Date, required: true},
   fim: {type: Date, required: false},
-  avaliacao: {type: Number, required: true},
-  melhorCitacao: {type: String, required: false},
-  melhoresPersonagens: {type: String, required: false}
+  nota: {type: Number, required: true},
+  citacao: {type: String, required: false},
+  personagens: {type: String, required: false},
+  dono: {type: String, required: true}
 })
 
 const RegisterModel = mongoose.model('books', RegisterSchema);
 
 export default class Register extends Account {
-  constructor(body) {
+  constructor(body, user) {
     super(body);
+    this.user = user;
   }
 
   async registrar() {
-    this.cleanUp();
+    await this.validate();
+    
+    if (this.errors.length > 0) return;
 
-    console.log(this.body)
+    return this.account = await RegisterModel.create(this.body);
+  }
+
+  async validate() {
+    this.cleanUp();
+    this.cleanUser();
+
+    if (!this.body.titulo) this.errorMsg('O título do livro é obrigatório');
+    if (!this.body.autor) this.errorMsg('O nome do autor é obrigatório');
+    if (!this.body.inicio) this.errorMsg('O inicio da leitura é obrigatório');
+    if (await this.compareBook()) this.errorMsg("O livro já foi cadastrado, você pode apenas alteralo");
+  }
+
+  cleanUser() {
+    const {password, _id, __v, ...detailsUser} = this.user;
+    this.user = detailsUser;
+
+    this.body = {
+      ...this.body,
+      dono: this.user.email
+    };
+  }
+
+  async compareBook() {
+    return this.account = await RegisterModel.findOne({dono: this.user.email, titulo: this.body.titulo});
   }
 }

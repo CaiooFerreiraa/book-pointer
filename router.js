@@ -1,8 +1,9 @@
 import express from 'express';
-import { longinRequired } from './src/middlewares/middlewares.js';
+import { longinRequired, admin } from './src/middlewares/middlewares.js';
 import homeControler from './src/controllers/homeController.js';
 import loginController from './src/controllers/loginController.js';
 import registerController from './src/controllers/registerController.js';
+import adminController from './src/controllers/adminController.js';
 const router = express.Router();
 
 //Home do site
@@ -17,5 +18,11 @@ router.post('/singin/create', loginController.create);
 //Página de registro de livros
 router.get('/register', longinRequired, registerController.index);
 router.post('/register/registerBook', longinRequired, registerController.register);
+
+//page Admin
+router.get('/admin', admin, adminController.index);
+router.get('/admin/superUser', admin,adminController.superUser);
+router.get('/admin/register', admin, registerController.index);
+router.post('/admin/registerSuperUser', admin,adminController.registerSuperUser);
 
 export default router;
