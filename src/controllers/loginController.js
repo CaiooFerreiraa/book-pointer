@@ -18,16 +18,15 @@ export const login = async (req, res) => {
       req.flash('errors', user.errors);
       return req.session.save(() => {res.redirect('back')});
     }
-    
-    req.session.user = user.account;
-    req.flash('success', 'Usuário logado com sucesso');
 
+    req.session.user = user.account;
     if (req.body.email === process.env.emailAdmin && req.body.password === process.env.passwordAdmin) {
       return req.session.save(() => {
         res.redirect('/admin');
       })
     }
 
+    req.flash('success', 'Usuário logado com sucesso');
     return req.session.save(() => {res.redirect('back')});
   } catch (e) {
     console.error(e)
