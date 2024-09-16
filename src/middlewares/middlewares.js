@@ -8,6 +8,7 @@ export const createCsrf = (req, res, next) => {
   res.locals.success = req.flash('success');
   res.locals.target = req.session.target;
   res.locals.user = req.session.user;
+  res.locals.emailAd = process.env.emailAdmin;
   next();
 }
 
@@ -22,11 +23,7 @@ export const longinRequired = (req, res, next) => {
 }
 
 export const admin = (req, res, next) => {
-  const userEmail = req.session.user.email;
-  const emailAdmin = process.env.emailAdmin;
-  const userPassword = req.session.user.password;
-  const passwordAdmin = process.env.passwordAdmin;
-
-  if ( userEmail === emailAdmin && bcryptjs.compareSync(passwordAdmin, userPassword)) return next()
+  // Faz a validação para saber se o usuário logado é o admin
+  if ( req.session.user.email === process.env.emailAdmin && bcryptjs.compareSync(process.env.passwordAdmin, req.session.user.password)) return next()
   res.render('error');
 }

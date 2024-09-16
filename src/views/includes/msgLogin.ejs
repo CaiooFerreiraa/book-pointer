@@ -6,8 +6,12 @@
   </div>
 <% } else if (success.length > 0 && target == 'login') { %>
   <div>
-    <% success.forEach(element => { %>
-      <div><%= element %></div>
-    <% }) %>
+    <% if (user.email === emailAd) { %>
+      <input type="hidden" name="msg" value="<%= success[0] %>" id="sexta-feira">
+     <% } else { %>
+        <% success.forEach(element => { %>
+          <div><%= element %></div>
+        <% }) %>
+    <% } %>
   </div>
 <% } %>

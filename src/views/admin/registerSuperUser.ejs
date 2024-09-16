@@ -1,11 +1,18 @@
 <%- include('../includes/header') %>
 <%- include('../includes/nav') %>
 
+<%- include('../includes/msg.ejs') %>
 <form action="/admin/registerSuperUser" method="post">
   <input type="hidden" name="_csrf" value="<%= csrfToken %>">
   <div>
-    <label for="emailAdmin">Email</label>
-    <input type="text" name="emailAdmin" id="emailAdmin">
+    <label for="emailAd">Email</label>
+    <input type="text" name="emailAd" id="emailAd">
+  </div>
+  <div>
+    <label for="add">Adiconar super user</label>
+    <input type="checkbox" name="add" id="name">
+    <label for="remove">Remoser super user</label>
+    <input type="checkbox" name="remove" id="remove">
   </div>
   <button type="submit">Registrar</button>
 </form>

@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import bcryptjs from 'bcryptjs';
 import Account from '../BaseClasses/AccountCore.js';
 
 const RegisterSchema = new mongoose.Schema({
@@ -14,7 +13,7 @@ const RegisterSchema = new mongoose.Schema({
   dono: {type: String, required: true}
 })
 
-const RegisterModel = mongoose.model('books', RegisterSchema);
+export const RegisterModel = mongoose.model('books', RegisterSchema);
 
 export default class Register extends Account {
   constructor(body, user) {

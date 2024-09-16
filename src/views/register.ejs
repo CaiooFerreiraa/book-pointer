@@ -9,25 +9,25 @@
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <div class="d-flex flex-column">
       <label for="titulo">Titulo</label>
-      <input type="text" name="titulo" id="titulo" class=""> 
+      <input type="text" name="titulo" id="titulo" value="<%= book.titulo %>"> 
     </div>
     <div class="d-flex flex-column">
       <label for="autor">Autor</label>
-      <input type="text" name="autor" id="autor">
+      <input type="text" name="autor" id="autor" value="<%= book.autor %>">
     </div>
     <div class="d-flex flex-column mb-3">
       <label for="genero">Gênero</label>
-      <input type="text" name="genero" id="genero">
+      <input type="text" name="genero" id="genero" value="<%= book.genero %>">
     </div>
     <div class="d-flex" style="justify-content: center; align-items: center;">
       <label for="dataInit">Inicio</label>
-      <input type="text" name="inicio" id="dataInit">
+      <input type="text" name="inicio" id="dataInit" value="<%= book.inicio %>">
       <label for="dataFinish">Fim</label>
       <input type="text" name="fim" id="dataFinish">
     </div>
     <div class="d-flex flex-column">
       <label for="nota">Avaliação</label>
-      <input type="text" name="nota" id="nota">
+      <input type="text" name="nota" id="nota" value="<%= book.nota %>">
     </div>
     <div class="d-flex flex-column">
       <label for="citacao">Melhor citação</label>
@@ -37,7 +37,7 @@
       <label for="personagens">Melhores personagens</label>
       <input type="text" name="personagens" id="personagens">
     </div>
-    <button type="submit">Salver</button>
+    <button type="submit">Salvar</button>
   </form>
 </div>
 

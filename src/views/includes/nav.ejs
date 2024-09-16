@@ -7,10 +7,15 @@
       <a class="navbar-brand" href="/">Livros</a>
       <ul class="navbar-nav ms-auto mb-lg-0">
         <% if (user) { %>
-          <li class="nav-item"></li>
-          <a class="nav-link active" href="/register">Registar Livro</a>
-        </li>
-          <li class="nav-item"></li>
+          <% if (user.email === emailAd) { %>
+            <li class="nav-item">
+              <a class="nav-link active" href="/admin">Admin</a>
+            </li>
+          <% } %>
+          <li class="nav-item">
+            <a class="nav-link active" href="/register">Registar Livro</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link active" href="/logout">Sair</a>
           </li>
         <% } %>

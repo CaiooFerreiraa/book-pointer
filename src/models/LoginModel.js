@@ -8,10 +8,10 @@ const LoginSchema = new mongoose.Schema({
   sobrenome: {type: String, required: true},
   email: {type: String, required: true},
   password: {type: String, required: true},
-  super: {type: Boolean, required: false}
+  super: {type: Boolean, required: true}
 })
 
-const LoginModel = mongoose.model('accounts', LoginSchema);
+export const LoginModel = mongoose.model('accounts', LoginSchema);
 
 export class Create extends Account {
   constructor(body) {
@@ -27,7 +27,7 @@ export class Create extends Account {
     const salt = bcryptjs.genSaltSync();
     this.body.password = bcryptjs.hashSync(this.body.password, salt);
 
-    return this.account = await LoginModel.create(this.body);
+    return this.account = await LoginModel.create({...this.body, super: false});
   }
 
   async validate() {

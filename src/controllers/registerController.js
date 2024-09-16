@@ -1,7 +1,10 @@
+import EditBook from "../models/EditModel.js";
 import Register from "../models/RegisterModel.js";
 
-export const index = (req, res) => {
-  res.render('register');
+export const index = async (req, res) => {
+  res.render('register', {
+    book: {}
+  });
   return;
 }
 
@@ -16,10 +19,11 @@ export const register = async (req, res) => {
         res.redirect('back');
       })
     }
+    console.log(registerBook.account._id)
 
     req.flash('success', 'Livro registrado com sucesso');
     return req.session.save(() => {
-      res.redirect('back');
+      res.redirect(`/register/${registerBook.account._id}`);
     })
   } catch (e) {
     console.error(e);
@@ -27,12 +31,20 @@ export const register = async (req, res) => {
   }
 }
 
-export const registerSuperUser = (req, res) => {
+export const edit = async (req, res) => {
+  try {
+    const editBook = new EditBook(req.params);
+    await editBook.edit();
 
+    res.render('register', {book: editBook.account});
+    return;
+  } catch (error) {
+    
+  }
 }
 
 export default {
   index,
   register,
-  registerSuperUser
+  edit
 }

@@ -4,37 +4,18 @@
 <div class="test">
   <div class="container">
     <div class="row row-cols-2 row-cols-md-4 row-cols-lg-5 row-cols-xl-6">
-      <div class="col p-1 d-flex justify-content-center">
-        <div class="card">
-          <img src="https://books.google.com/books/content?id=zWNyDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" class="card-img-top" alt="..." style="height: 100%;">
-          <div class="card-body">
-            <h5 class="card-title" style="font-size: .8em;">titulo do livro</h5>
-            <p class="card-text" style="font-size: .8em;">Avaliação</p>
-            <a href="#" class="btn btn-dark p-1" style="font-size: .7em;">Detalhes</a>
+      <% infoBooks.forEach(element => { %>
+        <div class="col p-1 d-flex justify-content-center">
+          <div class="card">
+            <img src="<%= element.img %>" class="card-img-top" alt="..." style="height: 100%;">
+            <div class="card-body">
+              <h5 class="card-title" style="font-size: .8em;"><%= element.titulo %></h5>
+              <p class="card-text" style="font-size: .8em;"><%= element.avaliacao %></p>
+              <a href="/register/<%= element.id %>" class="btn btn-dark p-1" style="font-size: .7em;">Detalhes</a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col p-1 d-flex justify-content-center">
-        <div class="card">
-          <img src="https://books.google.com/books/content?id=AKJGDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" class="card-img-top" alt="..." style="height: 100%;">
-          <div class="card-body">
-            <h5 class="card-title" style="font-size: .8em;">titulo do livro</h5>
-            <p class="card-text" style="font-size: .8em;">Avaliação</p>
-            <a href="#" class="btn btn-dark p-1" style="font-size: .7em;">Detalhes</a>
-          </div>
-        </div>
-      </div>
-      <div class="col p-1 d-flex justify-content-center">
-        <div class="card">
-          <img src="https://books.google.com/books/content?id=10qIEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" class="card-img-top" alt="..." style="height: 100%;">
-          <div class="card-body">
-            <h5 class="card-title" style="font-size: .8em;">titulo do livro</h5>
-            <p class="card-text" style="font-size: .8em;">Avaliação</p>
-            <a href="#" class="btn btn-dark p-1" style="font-size: .7em;">Detalhes</a>
-          </div>
-        </div>
-      </div>
-      
+      <% }) %>
     </div>
   </div>
 </div>

@@ -21,8 +21,9 @@ export const login = async (req, res) => {
 
     req.session.user = user.account;
     if (req.body.email === process.env.emailAdmin && req.body.password === process.env.passwordAdmin) {
+      req.flash('success', 'Seja bem vindo senhor');
       return req.session.save(() => {
-        res.redirect('/admin');
+        res.redirect('back');
       })
     }
 
