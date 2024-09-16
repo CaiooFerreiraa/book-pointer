@@ -20,11 +20,11 @@ export default class UpdateUser extends Account{
     this.cleanUp();
     await this.searchUser();
 
-    if (!validator.isEmail(this.body.emailAd) || !this.body.emailAd) return this.errors.push('Email inválido');
-    if (this.checkDoubleCheckbox()) return this.errors.push('Escolha uma opção para atualizar o usuário');
-    if (!await this.searchUser()) this.errors.push('A conta não está cadastrada');
-    if (this.account.super === true && this.body.add) this.errors.push('O usuário já tem o super user');
-    if (this.account.super === false && this.body.remove) this.errors.push('O usuário já não conta com o super user');
+    if (!validator.isEmail(this.body.emailAd) || !this.body.emailAd) return this.errorMsg('Email inválido');
+    if (this.checkDoubleCheckbox()) return this.errorMsg('Escolha uma opção para atualizar o usuário');
+    if (!await this.searchUser()) this.errorMsg('A conta não está cadastrada');
+    if (this.account.super === true && this.body.add) this.errorMsg('O usuário já tem o super user');
+    if (this.account.super === false && this.body.remove) this.errorMsg('O usuário já não conta com o super user');
   }
 
   checkDoubleCheckbox() {
