@@ -20,7 +20,7 @@ export const index = async (req, res, next) => {
         .then(book => {
           infoBooks.push({
             img: book.volumeInfo.imageLinks.thumbnail,
-            titulo: book.volumeInfo.title + (book.volumeInfo.subtitle ? " " + book.volumeInfo.subtitle : ''),
+            titulo: tituloBook.titulo,
             avaliacao: tituloBook.nota,
             id: tituloBook._id
           })

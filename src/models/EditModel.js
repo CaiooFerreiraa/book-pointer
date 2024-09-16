@@ -7,7 +7,7 @@ export default class EditBook extends Account {
   }
 
   async edit() {
-    console.log(await this.searchById());
+    await this.searchById();
   }
 
   async searchById() {

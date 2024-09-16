@@ -19,7 +19,6 @@ export const register = async (req, res) => {
         res.redirect('back');
       })
     }
-    console.log(registerBook.account._id)
 
     req.flash('success', 'Livro registrado com sucesso');
     return req.session.save(() => {

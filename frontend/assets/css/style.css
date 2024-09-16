@@ -12,6 +12,10 @@
   background-color: var(--bg-color-bege);
 }
 
+.card-body {
+  padding: 5px;
+}
+
 .navbar {
   background-color: var(--bg-color-darkred);
   position: sticky;
@@ -59,7 +63,7 @@
 
 @media (min-width: 768px) {
   .card {
-    width: 85%;
+    width: 95%;
     height: 20rem;
   }
 }
