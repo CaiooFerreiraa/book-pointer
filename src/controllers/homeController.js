@@ -2,6 +2,8 @@ import { RegisterModel } from '../models/RegisterModel.js';
 
 export const index = async (req, res, next) => {
   try {
+    if (!req.session.user) return res.render('index', {infoBooks: {}});
+
     const books = await RegisterModel.find({dono: req.session.user.email});
     const infoBooks = [];
     const RegExp = /[^a-zA-Z0-9]/g;
