@@ -17,7 +17,9 @@ router.post('/singin/create', loginController.create);
 
 //Página de registro de livros
 router.get('/register', longinRequired, registerController.index);
-router.get('/register/:id', longinRequired, registerController.edit)
+router.get('/register/:id', longinRequired, registerController.book);
+router.get('/delete/:id', longinRequired, registerController.deleteB, homeControler.index);
+router.post('/register/edit/:id', longinRequired, registerController.edit);
 router.post('/register/registerBook', longinRequired, registerController.register);
 
 //page Admin

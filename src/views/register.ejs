@@ -5,7 +5,11 @@
 
   <%- include('includes/msg') %>
 
-  <form action="/register/registerBook" method="post">
+  <% if (Object.keys(book).length !== 0) { %>
+    <form action="/register/edit/<%= book.id %>" method="post">
+  <% } else { %>
+    <form action="/register/registerBook" method="post">
+  <% } %>
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <div class="d-flex flex-column">
       <label for="titulo">Titulo</label>

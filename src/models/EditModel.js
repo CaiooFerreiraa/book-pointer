@@ -6,11 +6,22 @@ export default class EditBook extends Account {
     super(body)
   }
 
-  async edit() {
-    await this.searchById();
+  static async updateBook(id, body) {
+    const {_csrf, ...restan} = body;
+    body = restan;
+
+    return this.account = await RegisterModel.findOneAndUpdate({_id: id}, body, {new: true});
   }
 
-  async searchById() {
-    return this.account = await RegisterModel.findById(this.body.id);
+  static async deleteBook(id) {
+    await RegisterModel.findOneAndDelete({_id: id});
+  }
+
+  static async searchById(id) {
+    return this.account = await RegisterModel.findById(id);
+  }
+
+  static async find() {
+    return await RegisterModel.find();
   }
 }

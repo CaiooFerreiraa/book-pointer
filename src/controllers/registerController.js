@@ -30,20 +30,42 @@ export const register = async (req, res) => {
   }
 }
 
-export const edit = async (req, res) => {
+export const book = async (req, res) => {
   try {
-    const editBook = new EditBook(req.params);
-    await editBook.edit();
+    const editBook = await EditBook.searchById(req.params.id);
 
-    res.render('register', {book: editBook.account});
+    res.render('register', {book: editBook});
     return;
   } catch (error) {
-    
+    console.error(e);
+  }
+}
+
+export const edit = async (req, res) => {
+  try {
+    const editBook = await EditBook.updateBook(req.params.id, req.body);
+
+    res.render('register', { book: editBook });
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export const deleteB = async (req, res, next) => {
+  try {
+    if (!req.params.id) return res.render('error');
+    await EditBook.deleteBook(req.params.id);
+
+    return next()
+  } catch (e) {
+    console.error(e);
   }
 }
 
 export default {
   index,
   register,
-  edit
+  book,
+  edit,
+  deleteB
 }
